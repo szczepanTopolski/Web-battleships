@@ -1,0 +1,49 @@
+body{
+    background-color: #b3e5fc;
+    display: flex;
+    flex-direction: column;
+}
+.maps--container{
+    display:flex;
+    flex-direction: row;
+}
+.map-player, .map-opponent{
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-gap: 1vh;
+    grid-auto-rows: minmax(5vh, auto);
+}
+.map-player{
+    margin-right: 10vh;
+    margin-left: 10%;
+}
+.map-opponent{
+    margin-right: 10%;
+}
+.field{
+    background-color: #01589b;
+    height: 7vh;
+    width: 7vh;
+}
+.field:hover{
+    background-color: #01589bbe;
+}
+
+.playerA{
+    display:flex;
+}
+
+.playerB{
+    display:none;
+}
+h1{
+    text-transform: capitalize;
+    font-weight: 700;
+}
+
+.setShip:hover{
+    background-color: #18ad2cbe !important;
+}
+.placed_ship{
+    background-color: #45c57a !important;
+}
