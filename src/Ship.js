@@ -1,5 +1,5 @@
 export class Ship{
-
+    //TODO change Cells to event.target objects
     constructor() {
         this.SHIP_STATUS_PLACED = "PLACED"
     }

@@ -21,6 +21,7 @@ function placeShip(event){
     const y = field.getAttribute("y");
     //TODO CHECK AVAILABILITY AND LENGTH
     field.classList.add("placed_ship")
+    //TODO Move css adjustments to ship constructor
     shipModels[0].ship.setShipElements([new Cell(x,y)]);
     shipModels[0].placed = true;
     console.log(shipModels[0]);
