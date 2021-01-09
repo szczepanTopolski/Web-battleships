@@ -43,12 +43,10 @@ function toggleSetShipHover(fields) {
 }
 
 function setUpBoards() {
-    const playerAContainer = document.querySelector(".playerA");
-    initializeBoard(playerAContainer.querySelector(".map-player"));
-    initializeBoard(playerAContainer.querySelector(".map-opponent"));
-    const playerBContainer = document.querySelector(".playerB");
-    initializeBoard(playerBContainer.querySelector(".map-player"));
-    initializeBoard(playerBContainer.querySelector(".map-opponent"));
+    initializeBoard(document.querySelector(".playerA .map-player"));
+    initializeBoard(document.querySelector(".playerA .map-opponent"));
+    initializeBoard(document.querySelector(".playerB .map-player"));
+    initializeBoard(document.querySelector(".playerB .map-opponent"));
 }
 
 
