@@ -12,15 +12,15 @@ body{
     grid-template-columns: repeat(10, 1fr);
     grid-gap: 1vh;
     grid-auto-rows: minmax(5vh, auto);
+    margin-top: 5%;
 }
 .map-player{
     margin-right: 5%; /* changed to 5% */
-    margin-left: 5%; /* changed to 5% */
-    margin-top: 5%;
+    margin-left: auto; /* changed to 5% */
 }
 .map-opponent{
-    margin-right: 5%; /* changed to 5% */
-    margin-top: 5%;
+    margin-right: auto; 
+    margin-left: 5%;
 }
 .field{
     background-color: #01589b;
