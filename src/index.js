@@ -8,8 +8,8 @@ function newGame(){
 }
 
 function setUpShips(){
-    toggleSetShipHover();
     const fields = document.querySelectorAll(".playerA .map-player .field");
+    toggleSetShipHover(fields);
     fields.forEach(field =>field.addEventListener("click", placeShip));
     periodicalyCheckWhetherShipsArePlaced(fields);
     
@@ -31,17 +31,15 @@ function periodicalyCheckWhetherShipsArePlaced(fields) {
     const interval = setInterval( ()=> {
         if (shipModels.filter(shipModel => !shipModel.placed).length === 0) {
             fields.forEach(field => field.removeEventListener("click", placeShip));
-            toggleSetShipHover();
+            toggleSetShipHover(fields);
             clearInterval(interval);
         }
     });
 }
 
 
-function toggleSetShipHover() {
-    document
-        .querySelectorAll(".field")
-        .forEach(element => element.classList.toggle("setShip"));
+function toggleSetShipHover(fields) {
+    fields.forEach(element => element.classList.toggle("setShip"));
 }
 
 function setUpBoards() {
