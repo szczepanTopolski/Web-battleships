@@ -14,11 +14,11 @@ body{
     grid-auto-rows: minmax(5vh, auto);
 }
 .map-player{
-    margin-right: 10vh;
-    margin-left: 10%;
+    margin-right: 5%;
+    margin-left: 5%;
 }
 .map-opponent{
-    margin-right: 10%;
+    margin-right: 5%;
 }
 .field{
     background-color: #01589b;
