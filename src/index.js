@@ -1,6 +1,5 @@
 import {initializeBoard} from './BoardInitializer'
 import {shipModels} from './ShipModels'
-import {Cell} from './Cell';
 
 function newGame(){
   setUpBoards();
@@ -16,13 +15,9 @@ function setUpShips(){
 }
 
 function placeShip(event){
-    const field = event.target;
-    const x = field.getAttribute("x");
-    const y = field.getAttribute("y");
+    const targetField = event.target;
     //TODO CHECK AVAILABILITY AND LENGTH
-    field.classList.add("placed_ship")
-    //TODO Move css adjustments to ship constructor
-    shipModels[0].ship.setShipElements([new Cell(x,y)]);
+    shipModels[0].ship.addShipElement(targetField);
     shipModels[0].placed = true;
     console.log(shipModels[0]);
 }
