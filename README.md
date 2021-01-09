@@ -20,7 +20,7 @@ npm install
 żeby odpalić dev server ->
 
 ```
-npm run dev
+npm run start
 ```
 
 jak się odpali idziesz na localhost:8080 i możesz sobie śledzić zmiany.
