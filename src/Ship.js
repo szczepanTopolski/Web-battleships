@@ -1,15 +1,18 @@
 export class Ship{
-    //TODO change Cells to event.target objects
+    
     constructor() {
-        this.SHIP_STATUS_PLACED = "PLACED"
+        this.shipElements = []
+    }
+
+    addShipElement(element){
+        //TODO CHECK IF LENGTH IS VALID
+        this.shipElements.push(element);
+        element.classList.add("placed_ship")
     }
 
     setShipElements(shipElements){
         this.shipElements = shipElements;
         this.shipLength = shipElements.length;
-        shipElements = shipElements.forEach(cell=>{
-            cell.setCellStatus(this.SHIP_STATUS_PLACED);
-        });
     }
 
 }
