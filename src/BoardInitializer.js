@@ -5,8 +5,8 @@ export function initializeBoard(container){
         {
             const field = document.createElement("div");
             field.classList.add("field");
-            field.setAttribute("x", j.toString())
-            field.setAttribute("y", i.toString())
+            field.setAttribute("x", i.toString())
+            field.setAttribute("y", j.toString())
             container.appendChild(field);
             
             
