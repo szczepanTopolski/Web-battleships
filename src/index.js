@@ -1,40 +1,22 @@
-import {initializeBoard} from './BoardInitializer'
-import {shipModels} from './ShipModels'
+import { initializeBoard } from './BoardInitializer'
+import { ComputerPlayer } from './player/ComputerPlayer';
+import { HumanPlayer } from './player/HumanPlayer';
+import { humanPlayerShipModels, computerPlayerShipModels } from './ship/ShipsModels'
 
-function newGame(){
-  setUpBoards();
-  setUpShips();
+function newGame() {
+    const humanPlayer = new HumanPlayer(humanPlayerShipModels);
+    const computerPlayer = new ComputerPlayer(computerPlayerShipModels);
+    setUpBoards();
+    setUpShips(humanPlayer, computerPlayer);
+    //TODO SYNCHRONIZE ROUNDS
 }
 
-function setUpShips(){
-    const fields = document.querySelectorAll(".playerA .map-player .field");
-    toggleSetShipHover(fields);
-    fields.forEach(field =>field.addEventListener("click", placeShip));
-    periodicalyCheckWhetherShipsArePlaced(fields);
-    
+function playRound(player) {
+    player.tryShoot();
 }
 
-function placeShip(event){
-    const targetField = event.target;
-    //TODO CHECK AVAILABILITY AND LENGTH
-    shipModels[0].ship.addShipElement(targetField);
-    shipModels[0].placed = true;
-    console.log(shipModels[0]);
-}
-
-function periodicalyCheckWhetherShipsArePlaced(fields) {
-    const interval = setInterval( ()=> {
-        if (shipModels.filter(shipModel => !shipModel.placed).length === 0) {
-            fields.forEach(field => field.removeEventListener("click", placeShip));
-            toggleSetShipHover(fields);
-            clearInterval(interval);
-        }
-    });
-}
-
-
-function toggleSetShipHover(fields) {
-    fields.forEach(element => element.classList.toggle("setShip"));
+function checkWin(player) {
+    return player.areAllShipsDestroyed();
 }
 
 function setUpBoards() {
@@ -44,5 +26,9 @@ function setUpBoards() {
     initializeBoard(document.querySelector(".playerB .map-opponent"));
 }
 
+function setUpShips(humanPlayer, computerPlayer) {
+    humanPlayer.setUpShips();
+    computerPlayer.setUpShips();
+}
 
 newGame();
