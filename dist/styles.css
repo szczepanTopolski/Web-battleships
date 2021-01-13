@@ -76,3 +76,8 @@ h1{
     background-color: #838383e1 !important;
     cursor: default !important;
 }
+
+.untargetable{
+    background-color: #f3dcdce1 !important;
+    cursor: default !important;
+}
