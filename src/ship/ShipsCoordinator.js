@@ -25,13 +25,14 @@ function removeOnClickPlaceShipListener(targetField) {
     targetField.removeEventListener("click", placeShip);
 }
 
-export function periodicalyCheckWhetherShipsArePlaced(fields) {
+export function periodicalyCheckWhetherShipsArePlaced(fields, callback) {
 
     const interval = setInterval(() => {
         if (!humanPlayerShipModels.accurateShipNumber()) {
             fields.forEach(removeOnClickPlaceShipListener);
             toggleSetShipHover(fields);
             clearInterval(interval);
+            callback(true);
         }
     });
 }
@@ -50,7 +51,7 @@ export function toggleShootHover(fields) {
     });
 }
 
-export function placeRandomlyShips() {
+export function placeRandomlyShips(resolve) {
     const fields = document.querySelectorAll(".playerB .map-player .field");
 
     while (computerPlayerShipModels.accurateShipNumber()) {
@@ -62,37 +63,38 @@ export function placeRandomlyShips() {
             computerPlayerShipModels.ships.push(new Ship(target));
             console.log(computerPlayerShipModels.ships);
             console.log(getX(target) + "  ------- " + getY(target));
+            resolve(true);
         }
     }
 }
 
-export function addOnClickShootListeners(fields) {
+export function addOnClickShootListeners(fields, resolve) {
     fields.forEach(field => {
         if (!field.classList.contains("missed") &&
             !field.classList.contains("destroyed")) {
             field.addEventListener("click", shootCallback)
         }
     });
-}
 
-function shootCallback(event) {
-    const targetEvent = event.target;
-    const playerOpponentFields = document.querySelectorAll(".playerA .map-opponent .field");
-    const enemyFields = document.querySelectorAll(".playerB .map-player .field");
-    tryShoot(targetEvent, Array.from(enemyFields));
-    removeOnClickShootListeners(playerOpponentFields);
-    toggleShootHover(playerOpponentFields);
-    removeOnClickShootListener(targetEvent);
-}
+    function shootCallback(event) {
+        const targetEvent = event.target;
+        const playerOpponentFields = document.querySelectorAll(".playerA .map-opponent .field");
+        const enemyFields = document.querySelectorAll(".playerB .map-player .field");
+        tryShoot(targetEvent, Array.from(enemyFields));
+        removeOnClickShootListeners(playerOpponentFields);
+        toggleShootHover(playerOpponentFields);
+        removeOnClickShootListener(targetEvent);
+        resolve(true);
+    }
 
-export function removeOnClickShootListeners(fields) {
-    fields.forEach(field => removeOnClickShootListener(field));
-}
+    function removeOnClickShootListeners(fields) {
+        fields.forEach(field => removeOnClickShootListener(field));
+    }
 
-function removeOnClickShootListener(field) {
-    return field.removeEventListener("click", shootCallback);
+    function removeOnClickShootListener(field) {
+        return field.removeEventListener("click", shootCallback);
+    }
 }
-
 
 export function tryShootRandomly() {
     const computerOpponentFields = document.querySelectorAll(".playerB .map-opponent .field");
