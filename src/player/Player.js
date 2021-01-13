@@ -1,14 +1,15 @@
-export default class Player{
+export default class Player {
 
-    constructor(shipModel){
-        if(new.target === Player){
+    constructor(shipModel) {
+        if (new.target === Player) {
             throw new TypeError("Cannot construct abstract class instance!")
         }
         this.shipModel = shipModel;
     }
 
-    setUpShips(){}
-    tryShoot(){}
+    setUpShips() { }
+    tryShoot() { }
+
     areAllShipsDestroyed() {
         console.log(this.shipModel);
         return this.shipModel.ships
