@@ -101,7 +101,7 @@ export function addOnClickShootListeners(fields, resolve) {
 export function tryShootRandomly(resolve) {
     const computerOpponentFields = document.querySelectorAll(".playerB .map-opponent .field");
     const enemyFields = document.querySelectorAll(".playerA .map-player .field");
-    tryShoot(enemyFields[randomNumberFromZeroToNintenyNine()], Array.from(computerOpponentFields),Array.from(computerOpponentFields));
+    tryShoot(computerOpponentFields[randomNumberFromZeroToNintenyNine()], Array.from(enemyFields),Array.from(computerOpponentFields));
     resolve(true);
 }
 
