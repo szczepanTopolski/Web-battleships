@@ -7,7 +7,7 @@ export class ComputerPlayer extends Player {
     }
 
     setUpShips() {
-        placeRandomlyShips();
+        return new Promise(resolve => placeRandomlyShips(resolve));
     }
 
     tryShoot() {
