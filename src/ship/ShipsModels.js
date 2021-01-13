@@ -1,5 +1,5 @@
 export const humanPlayerShipModels = {
-    SHIP_LIMIT:1,
+    SHIP_LIMIT:4,
     ships:[],
     accurateShipNumber(){
         return this.ships.length < this.SHIP_LIMIT;
@@ -9,7 +9,7 @@ export const humanPlayerShipModels = {
     }
 };
 export const computerPlayerShipModels = {
-    SHIP_LIMIT:1,
+    SHIP_LIMIT:4,
     ships:[],
     accurateShipNumber(){
         return this.ships.length < this.SHIP_LIMIT;
