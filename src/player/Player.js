@@ -11,9 +11,11 @@ export default class Player {
     tryShoot() { }
 
     areAllShipsDestroyed() {
-        console.log(this.shipModel);
-        return this.shipModel.ships
-            .filter(ship => ship.isDestroyed())
-            .length == this.shipModel.SHIP_LIMIT;
+        return new Promise((resolve, reject) => {
+            this.shipModel
+                .ships
+                .filter(ship => ship.isDestroyed())
+                .length == this.shipModel.SHIP_LIMIT ? resolve(true) : reject(false);
+        });
     }
 }
