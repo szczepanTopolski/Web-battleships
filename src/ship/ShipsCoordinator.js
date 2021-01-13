@@ -1,7 +1,7 @@
 import { Ship } from './Ship';
 import { getX, getY, randomNumberFromZeroToNintenyNine } from '../Utils'
 import { humanPlayerShipModels, computerPlayerShipModels } from './ShipsModels'
-import { checkSurroundingFieldsAvailability, checkMaxShipLength } from './ShipsValidator'
+import { checkSurroundingFieldsAvailability, checkMaxShipLength, isAdjacentField } from './ShipsValidator'
 
 
 function placeShip(event) {
@@ -45,7 +45,8 @@ export function toggleSetShipHover(fields) {
 export function toggleShootHover(fields) {
     fields.forEach(field => {
         if (!field.classList.contains("missed") &&
-            !field.classList.contains("destroyed")) {
+            !field.classList.contains("destroyed") &&
+            !field.classList.contains("untargetable")) {
             field.classList.toggle("shoot");
         };
     });
@@ -71,7 +72,8 @@ export function placeRandomlyShips(resolve) {
 export function addOnClickShootListeners(fields, resolve) {
     fields.forEach(field => {
         if (!field.classList.contains("missed") &&
-            !field.classList.contains("destroyed")) {
+            !field.classList.contains("destroyed") &&
+            !field.classList.contains("untargetable")) {
             field.addEventListener("click", shootCallback)
         }
     });
@@ -80,7 +82,7 @@ export function addOnClickShootListeners(fields, resolve) {
         const targetEvent = event.target;
         const playerOpponentFields = document.querySelectorAll(".playerA .map-opponent .field");
         const enemyFields = document.querySelectorAll(".playerB .map-player .field");
-        tryShoot(targetEvent, Array.from(enemyFields));
+        tryShoot(targetEvent, Array.from(enemyFields), Array.from(playerOpponentFields));
         removeOnClickShootListeners(playerOpponentFields);
         toggleShootHover(playerOpponentFields);
         removeOnClickShootListener(targetEvent);
@@ -102,12 +104,13 @@ export function tryShootRandomly() {
     tryShoot(enemyFields[randomNumberFromZeroToNintenyNine()], Array.from(computerOpponentFields));
 }
 
-function tryShoot(target, fields) {
-    const enemyField = fields.filter(field => getX(field) == getX(target) &&
+function tryShoot(target, enemyFields, targetFields) {
+    const enemyField = enemyFields.filter(field => getX(field) == getX(target) &&
         getY(field) == getY(target))[0];
     if (enemyField.classList.contains("placed_ship")) {
         enemyField.classList.remove("placed_ship");
         target.classList.add("destroyed");
+        setAdjacentFieldsUntargetable(target, targetFields);
         enemyField.classList.add("destroyed");
         target.classList.remove("shoot");
     }
@@ -116,6 +119,15 @@ function tryShoot(target, fields) {
         enemyField.classList.add("missed");
         target.classList.remove("shoot");
     }
+}
+function setAdjacentFieldsUntargetable(target, fields) {
+    fields.filter(field => isAdjacentField(field, parseInt(getX(target)), parseInt(getY(target))))
+        .forEach(field => {
+            if (!field.classList.contains("untargetable")) {
+                field.classList.add("untargetable");
+                field.classList.toggle("shoot");
+            }
+        });
 }
 
 
