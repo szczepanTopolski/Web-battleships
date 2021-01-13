@@ -14,7 +14,7 @@ function containsShip(field) {
     return field.classList.contains("placed_ship");
 }
 
-function isAdjacentField(field, fieldX, fieldY) {
+export function isAdjacentField(field, fieldX, fieldY) {
     return (getX(field) == fieldX - 1 && getY(field) == fieldY + 1) ||
         (getX(field) == fieldX && getY(field) == fieldY + 1) ||
         (getX(field) == fieldX + 1 && getY(field) == fieldY + 1) ||
