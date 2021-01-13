@@ -11,7 +11,7 @@ export class ComputerPlayer extends Player {
     }
 
     tryShoot() {
-        tryShootRandomly();
+        return new Promise(resolve=>tryShootRandomly(resolve));
     }
 
 }
