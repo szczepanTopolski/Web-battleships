@@ -10,13 +10,13 @@ export class HumanPlayer extends Player {
         const fields = document.querySelectorAll(".playerA .map-player .field");
         toggleSetShipHover(fields);
         addOnClickPlaceShipListeners(fields);
-        periodicalyCheckWhetherShipsArePlaced(fields);
+        return new Promise((resolve) => periodicalyCheckWhetherShipsArePlaced(fields, resolve));
     }
 
     tryShoot() {
         const fields = document.querySelectorAll(".playerA .map-opponent .field");
         toggleShootHover(fields);
-        addOnClickShootListeners(fields);
+        return new Promise((resolve) => addOnClickShootListeners(fields, resolve));
     }
 
 
