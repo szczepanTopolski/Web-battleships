@@ -6,9 +6,10 @@ import { humanPlayerShipModels, computerPlayerShipModels } from './ship/ShipsMod
 
 const humanPlayer = new HumanPlayer(humanPlayerShipModels);
 const computerPlayer = new ComputerPlayer(computerPlayerShipModels);
-let isWon = false;
+let isWon;
 
 function newGame() {
+    cleanUp();
     setUpBoards();
     setUpShips()
         .then(playRound);
@@ -27,6 +28,8 @@ function playRound() {
                 alert("Player B WON!");
                 isWon=true;
             }, playRound);
+    }else{
+        newGame();
     }
 }
 
@@ -51,6 +54,16 @@ function setUpShips() {
             .then(computerPlayer.setUpShips)
             .then(() => resolve(true));
     });
+}
+
+function cleanUp(){
+    document.querySelector(".playerA .map-player").innerHTML = "";
+    document.querySelector(".playerA .map-opponent").innerHTML = "";
+    document.querySelector(".playerB .map-player").innerHTML = "";
+    document.querySelector(".playerB .map-opponent").innerHTML = "";
+    isWon = false;
+    humanPlayerShipModels.ships = [];
+    computerPlayerShipModels.ships = [];
 }
 
 newGame();
