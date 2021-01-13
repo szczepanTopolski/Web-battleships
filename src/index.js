@@ -6,26 +6,28 @@ import { humanPlayerShipModels, computerPlayerShipModels } from './ship/ShipsMod
 
 const humanPlayer = new HumanPlayer(humanPlayerShipModels);
 const computerPlayer = new ComputerPlayer(computerPlayerShipModels);
+let isWon = false;
 
 function newGame() {
     setUpBoards();
     setUpShips()
-        .then(playRound)
-
+        .then(playRound);
 }
 
 function playRound() {
-    humanPlayer.tryShoot()
-        .then(isHumanPlayerWinner)
-        .then(() => {
-            alert("Player A WON!");
-            return;
-        }, computerPlayer.tryShoot)
-        .then(isComputerPlayerWinner)
-        .then(() => {
-            alert("Player A WON!");
-            return;
-        }, playRound)
+    if (!isWon) {
+        humanPlayer.tryShoot()
+            .then(isHumanPlayerWinner)
+            .then(() => {
+                alert("Player A WON!");
+                isWon = true;
+            }, computerPlayer.tryShoot)
+            .then(isComputerPlayerWinner)
+            .then(() => {
+                alert("Player B WON!");
+                isWon=true;
+            }, playRound);
+    }
 }
 
 function isHumanPlayerWinner() {
