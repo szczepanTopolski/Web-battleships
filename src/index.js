@@ -10,21 +10,30 @@ const computerPlayer = new ComputerPlayer(computerPlayerShipModels);
 function newGame() {
     setUpBoards();
     setUpShips()
-    //.then(letsTheBattleBegin)
-    //ex. while(true?) 
-    //player.shoot()
-    //.then(player2.areAllShipsDestroyed)
-    //.then(player2.shoot)
-    .then(playRound);
+        .then(playRound)
+
 }
 
 function playRound() {
     humanPlayer.tryShoot()
-    .then(computerPlayer.tryShoot);
+        .then(isHumanPlayerWinner)
+        .then(() => {
+            alert("Player A WON!");
+            return;
+        }, computerPlayer.tryShoot)
+        .then(isComputerPlayerWinner)
+        .then(() => {
+            alert("Player A WON!");
+            return;
+        }, playRound)
 }
 
-function checkWin(player) {
-    return player.areAllShipsDestroyed();
+function isHumanPlayerWinner() {
+    return computerPlayer.areAllShipsDestroyed();
+}
+
+function isComputerPlayerWinner() {
+    return humanPlayer.areAllShipsDestroyed();
 }
 
 function setUpBoards() {
@@ -35,9 +44,10 @@ function setUpBoards() {
 }
 
 function setUpShips() {
-    return new Promise(resolve=>{humanPlayer.setUpShips()
-    .then(computerPlayer.setUpShips)
-    .then(()=>resolve(true));
+    return new Promise(resolve => {
+        humanPlayer.setUpShips()
+            .then(computerPlayer.setUpShips)
+            .then(() => resolve(true));
     });
 }
 
