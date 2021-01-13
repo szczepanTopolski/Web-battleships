@@ -3,16 +3,24 @@ import { ComputerPlayer } from './player/ComputerPlayer';
 import { HumanPlayer } from './player/HumanPlayer';
 import { humanPlayerShipModels, computerPlayerShipModels } from './ship/ShipsModels'
 
+
+const humanPlayer = new HumanPlayer(humanPlayerShipModels);
+const computerPlayer = new ComputerPlayer(computerPlayerShipModels);
+
 function newGame() {
-    const humanPlayer = new HumanPlayer(humanPlayerShipModels);
-    const computerPlayer = new ComputerPlayer(computerPlayerShipModels);
     setUpBoards();
-    setUpShips(humanPlayer, computerPlayer);
-    //TODO SYNCHRONIZE ROUNDS
+    setUpShips()
+    //.then(letsTheBattleBegin)
+    //ex. while(true?) 
+    //player.shoot()
+    //.then(player2.areAllShipsDestroyed)
+    //.then(player2.shoot)
+    .then(playRound);
 }
 
-function playRound(player) {
-    player.tryShoot();
+function playRound() {
+    humanPlayer.tryShoot()
+    .then(computerPlayer.tryShoot);
 }
 
 function checkWin(player) {
@@ -26,9 +34,11 @@ function setUpBoards() {
     initializeBoard(document.querySelector(".playerB .map-opponent"));
 }
 
-function setUpShips(humanPlayer, computerPlayer) {
-    humanPlayer.setUpShips();
-    computerPlayer.setUpShips();
+function setUpShips() {
+    return new Promise(resolve=>{humanPlayer.setUpShips()
+    .then(computerPlayer.setUpShips)
+    .then(()=>resolve(true));
+    });
 }
 
 newGame();
