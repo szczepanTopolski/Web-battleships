@@ -7,7 +7,18 @@
     <link rel="stylesheet" type="text/css" href="styles.css" media="screen" />
 </head>
 <body>
-    
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+      </div>
+      
+      <div id="main">
+        <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button>  
+      </div>
+
     <div class="maps-container playerA">
         <!-- <h1>YOUR BOARD</h1> -->
         <div class="map-player">
@@ -30,5 +41,26 @@
 
     </div>
     <script src="./bundle.js"></script>
+    <script>
+        function openNav() {
+          document.getElementById("mySidebar").style.width = "15%";
+          document.getElementById("main").style.marginLeft = "15%";
+          document.querySelector(".maps-container").style.width = "auto";
+          document.querySelector(".maps-container").style.height = "auto";
+          document.querySelector(".maps-container").style.marginLeft = "16%";
+          document.querySelector(".maps-container").style.marginRight = "44%";
+          
+
+        }
+        
+        function closeNav() {
+          document.getElementById("mySidebar").style.width = "0";
+          document.getElementById("main").style.marginLeft= "0";
+          document.querySelector(".maps-container").style.width = "";
+          document.querySelector(".maps-container").style.height = "";
+          document.querySelector(".maps-container").style.marginLeft = "";
+          document.querySelector(".maps-container").style.marginRight = "";
+        }
+        </script>
 </body>
 </html>
