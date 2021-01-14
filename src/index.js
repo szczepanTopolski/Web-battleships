@@ -6,7 +6,6 @@ import { humanPlayerShipModels, computerPlayerShipModels } from './ship/ShipsMod
 
 const humanPlayer = new HumanPlayer(humanPlayerShipModels);
 const computerPlayer = new ComputerPlayer(computerPlayerShipModels);
-let isWon;
 
 function newGame() {
     cleanUp();
@@ -16,22 +15,22 @@ function newGame() {
 }
 
 function playRound() {
-    if (!isWon) {
+        console.log("asd")
         humanPlayer.tryShoot()
             .then(isHumanPlayerWinner)
             .then(() => {
                 alert("Player A WON!");
-                isWon = true;
+                newGame();
             }, computerPlayer.tryShoot)
             .then(isComputerPlayerWinner)
             .then(() => {
                 alert("Player B WON!");
-                isWon=true;
-            }, playRound);
-    }else{
-        newGame();
-    }
-}
+                newGame();
+                
+            },playRound );
+        }
+    
+
 
 function isHumanPlayerWinner() {
     return computerPlayer.areAllShipsDestroyed();
@@ -61,7 +60,6 @@ function cleanUp(){
     document.querySelector(".playerA .map-opponent").innerHTML = "";
     document.querySelector(".playerB .map-player").innerHTML = "";
     document.querySelector(".playerB .map-opponent").innerHTML = "";
-    isWon = false;
     humanPlayerShipModels.ships = [];
     computerPlayerShipModels.ships = [];
 }
