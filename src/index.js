@@ -15,7 +15,6 @@ function newGame() {
 }
 
 function playRound() {
-        console.log("asd")
         humanPlayer.tryShoot()
             .then(isHumanPlayerWinner)
             .then(() => {
